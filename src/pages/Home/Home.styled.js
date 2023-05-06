@@ -10,6 +10,6 @@ export const HomeContainer = styled.main`
 export const HomeTitle = styled.h1`
   margin-top: 20px;
 
-  color: #483d8b;
+  color: #dcdcdc;
   text-transform: uppercase;
 `;

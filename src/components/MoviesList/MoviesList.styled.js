@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { NavLink } from 'react-router-dom';
 
-export const MoviesList = styled.ul`
+export const ListOfMovies = styled.ul`
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
@@ -49,9 +49,11 @@ export const Rating = styled.div`
 export const TitleMovie = styled.h2`
   margin-top: 15px;
   font-size: 19px;
+  color: #dcdcdc;
 `;
 
 export const ReleaseMovie = styled.p`
   font-size: 13px;
-  color: #696969;
+  color: #dcdcdc;
+  opacity: 0.8;
 `;

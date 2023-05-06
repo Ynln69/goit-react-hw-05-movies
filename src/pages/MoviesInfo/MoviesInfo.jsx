@@ -1,79 +1,116 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import Notiflix from 'notiflix';
+import { useEffect, useState, Suspense } from 'react';
 import { ReactComponent as ArrowIcon } from './../../images/arrow-left.svg';
-import { API_KEY } from 'api/moviesAPI';
-import { useParams } from 'react-router-dom';
-import { MovieInfoBtn } from './MoviesInfo.styled';
+import { fetchMoviesById } from 'api/moviesAPI';
+import { useParams, useLocation, Outlet } from 'react-router-dom';
+import {
+  MovieInfoBtn,
+  MovieInfoTitle,
+  MovieInfoBox,
+  MovieInfoImg,
+  MovieInfoTd,
+  CastList,
+  AdditionalInfoLink,
+} from './MoviesInfo.styled';
 
 const MoviesInfo = () => {
   const [movie, setMovie] = useState([]);
   const { movieId } = useParams();
-  console.log(movieId);
+  const location = useLocation();
+  const backLinkHref = location.state?.from ?? '/';
 
   useEffect(() => {
-    const getMovieById = async movieId => {
+    const getMovieById = async () => {
       try {
-        const response = await axios.get(
-          `https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}&language=en-US`
-        );
-        const data = response.data.results;
-        const filteredData = data.map(
-          ({ id, title, release_date, vote_average, poster_path }) => ({
-            id,
-            title,
-            release_date,
-            rating: vote_average.toFixed(1),
-            poster: poster_path
-              ? `https://image.tmdb.org/t/p/w500${poster_path}`
-              : `https://you-anime.ru/anime-images/characters/zcPU99e4VKppfptI.jpg`,
-          })
-        );
-        console.log(filteredData);
-        setMovie(filteredData);
-      } catch (error) {}
+        const respons = await fetchMoviesById(movieId);
+        const data = respons.data;
+
+        const objectMovie = {
+          poster: `https://image.tmdb.org/t/p/w500${data.poster_path}`,
+          title: data.title,
+          rating: data.vote_average.toFixed(1),
+          tagline: data.tagline,
+          date: data.release_date,
+          countries: data.production_countries
+            .map(({ name }) => name)
+            .join(', '),
+          genres: data.genres.map(({ name }) => name).join(', '),
+          overview: data.overview,
+        };
+        setMovie(objectMovie);
+      } catch (error) {
+        console.error(error);
+        Notiflix.Notify.failure('Error fetching movies');
+        setMovie({});
+      }
     };
     getMovieById();
   }, [movieId]);
 
   return (
     <main>
-      <MovieInfoBtn type="button">
+      <MovieInfoBtn to={backLinkHref}>
         <ArrowIcon width="25" height="25" />
         Go back to films
       </MovieInfoBtn>
-      {movie ? (
+      {Boolean(Object.keys(movie).length) && (
         <>
-          <h2>
-            {' '}
-            {movie.title} : {movie.release_date}
-          </h2>
-          <div>
-            <div>
-              <img src={movie.poster} alt={movie.title} />
-            </div>
-            <div>
-              <ul>
-                <li>
-                  <p></p>
-                  <p></p>
-                </li>
-                <li>
-                  <p></p>
-                  <p></p>
-                </li>
-                <li>
-                  <p></p>
-                  <p></p>
-                </li>
-              </ul>
-            </div>
-          </div>
+          <MovieInfoTitle>{movie.title}</MovieInfoTitle>
+          <MovieInfoBox>
+            <MovieInfoImg src={movie.poster} alt={movie.title} />
+            <table>
+              <tbody>
+                <tr>
+                  <MovieInfoTd>
+                    <h2>Rating</h2>
+                  </MovieInfoTd>
+                  <td>{movie.rating}</td>
+                </tr>
+                <tr>
+                  <MovieInfoTd>
+                    <h2>Slogan</h2>
+                  </MovieInfoTd>
+                  <td>"{movie.tagline}"</td>
+                </tr>
+                <tr>
+                  <MovieInfoTd>
+                    <h2>Release date</h2>
+                  </MovieInfoTd>
+                  <td>{movie.date}</td>
+                </tr>
+                <tr>
+                  <MovieInfoTd>
+                    <h2>Country</h2>
+                  </MovieInfoTd>
+                  <td>{movie.countries}</td>
+                </tr>
+                <tr>
+                  <MovieInfoTd>
+                    <h2>Genre</h2>
+                  </MovieInfoTd>
+                  <td>{movie.genres}</td>
+                </tr>
+                <tr>
+                  <MovieInfoTd>
+                    <h2>Overview</h2>
+                  </MovieInfoTd>
+                  <td>{movie.overview}</td>
+                </tr>
+              </tbody>
+            </table>
+          </MovieInfoBox>
+          <CastList>
+            <li>
+              <AdditionalInfoLink to="cast">Cast</AdditionalInfoLink>
+            </li>
+            <li>
+              <AdditionalInfoLink to="reviews">Reviews</AdditionalInfoLink>
+            </li>
+          </CastList>
+          <Suspense fallback={<div>Loading subpage...</div>}>
+            <Outlet />
+          </Suspense>
         </>
-      ) : (
-        <h3>
-          {' '}
-          Sorry not found information from this film, try choose any film{' '}
-        </h3>
       )}
     </main>
   );
