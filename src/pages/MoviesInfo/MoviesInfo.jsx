@@ -7,7 +7,6 @@ import {
   MovieInfoBtn,
   MovieInfoTitle,
   MovieInfoBox,
-  MovieInfoImg,
   MovieInfoTd,
   CastList,
   AdditionalInfoLink,
@@ -57,7 +56,7 @@ const MoviesInfo = () => {
         <>
           <MovieInfoTitle>{movie.title}</MovieInfoTitle>
           <MovieInfoBox>
-            <MovieInfoImg src={movie.poster} alt={movie.title} />
+            <img src={movie.poster} alt={movie.title} />
             <table>
               <tbody>
                 <tr>

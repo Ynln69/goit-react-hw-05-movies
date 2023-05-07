@@ -11,6 +11,10 @@ export const ReviewsList = styled.ul`
     gap: 10px;
     border-bottom: 1px solid black;
     flex-direction: column;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 5px -1px;
+    background-color: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(2px);
+    border-radius: 5px;
   }
 `;
 

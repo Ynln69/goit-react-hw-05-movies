@@ -33,22 +33,23 @@ export const MovieInfoBox = styled.div`
   display: flex;
   gap: 20px;
   margin-bottom: 35px;
-`;
-
-export const MovieInfoImg = styled.img`
-  width: 260px;
+  > img {
+    width: 370px;
+    height: 450px;
+  }
 `;
 
 export const MovieInfoTd = styled.td`
-  width: 150px;
-  height: 50px;
+  width: 137px;
+  > h2 {
+    font-size: 20px;
+  }
 `;
 
 export const CastList = styled.ul`
   display: flex;
   gap: 20px;
   align-items: center;
-  justify-content: center;
   margin-bottom: 50px;
 `;
 export const AdditionalInfoLink = styled(NavLink)`

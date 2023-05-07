@@ -53,7 +53,7 @@ export const TitleMovie = styled.h2`
 `;
 
 export const ReleaseMovie = styled.p`
-  font-size: 13px;
+  font-size: 17px;
   color: #dcdcdc;
   opacity: 0.8;
 `;

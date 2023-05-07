@@ -14,7 +14,7 @@ const MoviesList = ({ movies }) => {
     <ListOfMovies>
       {movies.map(movie => (
         <li key={movie.id}>
-          <Link to={`movies/${movie.id}`} state={{ from: location }}>
+          <Link to={`/movies/${movie.id}`} state={{ from: location }}>
             <img src={movie.poster} alt={movie.title} />
             <ItemBox>
               <Rating>
