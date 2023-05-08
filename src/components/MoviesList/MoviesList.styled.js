@@ -18,8 +18,10 @@ export const ListOfMovies = styled.ul`
 `;
 
 export const Link = styled(NavLink)`
+  display: flex;
   color: currentColor;
   text-decoration: none;
+  flex-direction: column;
 `;
 
 export const ItemBox = styled.div`

@@ -24,32 +24,11 @@ export const MovieInfoBtn = styled(Link)`
   }
 `;
 
-export const MovieInfoTitle = styled.h1`
-  margin-bottom: 20px;
-  font-size: 30px;
-`;
-
-export const MovieInfoBox = styled.div`
-  display: flex;
-  gap: 20px;
-  margin-bottom: 35px;
-  > img {
-    width: 370px;
-    height: 450px;
-  }
-`;
-
-export const MovieInfoTd = styled.td`
-  width: 137px;
-  > h2 {
-    font-size: 20px;
-  }
-`;
-
 export const CastList = styled.ul`
   display: flex;
   gap: 20px;
   align-items: center;
+  justify-content: space-around;
   margin-bottom: 50px;
 `;
 export const AdditionalInfoLink = styled(NavLink)`

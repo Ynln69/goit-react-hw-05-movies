@@ -15,6 +15,14 @@ export const ReviewsList = styled.ul`
     background-color: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(2px);
     border-radius: 5px;
+    > div {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      > img {
+        border-radius: 50%;
+      }
+    }
   }
 `;
 

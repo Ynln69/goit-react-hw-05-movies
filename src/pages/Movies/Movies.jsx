@@ -5,10 +5,12 @@ import { MovieMain } from './Movies.styled';
 import { fetchQueryMovies, normalizeMoviesList } from 'api/moviesAPI';
 import SearchFormForMovies from 'components/SearchForm/SearchForm';
 import MoviesList from 'components/MoviesList/MoviesList';
+import Loader from 'components/Loader/Loader';
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
   const [query, setQuery] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const fromParams = searchParams.get('query');
 
@@ -18,6 +20,7 @@ const Movies = () => {
     }
     try {
       const getQueryMovies = async () => {
+        setIsLoading(true);
         const {
           data: { results },
         } = await fetchQueryMovies(fromParams);
@@ -33,6 +36,8 @@ const Movies = () => {
     } catch (error) {
       console.error(error);
       Notiflix.Notify.failure('Error fetching movies');
+    } finally {
+      setIsLoading(false);
     }
   }, [fromParams, searchParams]);
 
@@ -58,6 +63,7 @@ const Movies = () => {
         onChange={onChange}
         onSubmit={handleSubmit}
       />
+      {isLoading && <Loader />}
       {movies ? <MoviesList movies={movies} /> : <></>}
     </MovieMain>
   );

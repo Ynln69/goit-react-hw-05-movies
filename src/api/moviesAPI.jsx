@@ -33,7 +33,7 @@ export const normalizeMoviesList = arr => {
     rating: vote_average.toFixed(1),
     poster: poster_path
       ? `https://image.tmdb.org/t/p/w500${poster_path}`
-      : `https://you-anime.ru/anime-images/characters/zcPU99e4VKppfptI.jpg`,
+      : `https://thumbs.dreamstime.com/b/%D0%B8-%D1%8E%D1%81%D1%82%D1%80%D0%B0%D1%86%D0%B8%D1%8F-%D0%BF-%D0%B0%D0%BA%D0%B0%D1%82%D0%B0-%D0%BA%D0%B8%D0%BD%D0%BE-48746594.jpg`,
   }));
 };
 
@@ -82,5 +82,26 @@ export const fetchReviews = async movieId => {
 };
 
 export const normalizedReviews = arr => {
-  return arr.map(({ id, author, content }) => ({ id, author, content }));
+  return arr.map(({ id, content, author_details, author }) => ({
+    id,
+    author,
+    content,
+    userName: author_details.username,
+    avatar:
+      author_details.avatar_path &&
+      author_details.avatar_path.startsWith('/http')
+        ? author_details.avatar_path.slice(1, author_details.avatar_path.length)
+        : `https://image.tmdb.org/t/p/w500${author_details.avatar_path}`,
+  }));
+};
+
+export const fetchTrailerVideo = async movieId => {
+  try {
+    return await axios.get(
+      `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${API_KEY}&language=en-US`
+    );
+  } catch (e) {
+    console.error(e);
+    Notiflix.Notify.failure('Error fetching reviews');
+  }
 };

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import {
   Link,
   TitleMovie,
@@ -28,5 +29,17 @@ const MoviesList = ({ movies }) => {
       ))}
     </ListOfMovies>
   );
+};
+
+MoviesList.propTypes = {
+  movies: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      poster: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      rating: PropTypes.string.isRequired,
+      release_date: PropTypes.string.isRequired,
+    }).isRequired
+  ),
 };
 export default MoviesList;

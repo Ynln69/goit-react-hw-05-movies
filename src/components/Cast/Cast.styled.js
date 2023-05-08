@@ -18,7 +18,6 @@ export const CastInfoBox = styled.div`
   display: flex;
   padding: 4px;
   flex-direction: column;
-  // align-items: flex-start;
   gap: 5px;
   flex-grow: 1;
 

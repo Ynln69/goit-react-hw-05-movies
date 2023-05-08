@@ -5,14 +5,13 @@ import { fetchMoviesById } from 'api/moviesAPI';
 import { useParams, useLocation, Outlet } from 'react-router-dom';
 import {
   MovieInfoBtn,
-  MovieInfoTitle,
-  MovieInfoBox,
-  MovieInfoTd,
   CastList,
   AdditionalInfoLink,
-} from './MoviesInfo.styled';
+} from './MovieDetails.styled';
+import Loader from 'components/Loader/Loader';
+import MovieInfo from 'components/MovieInfo/MovieInfo';
 
-const MoviesInfo = () => {
+const MoviesDetails = () => {
   const [movie, setMovie] = useState([]);
   const { movieId } = useParams();
   const location = useLocation();
@@ -25,7 +24,9 @@ const MoviesInfo = () => {
         const data = respons.data;
 
         const objectMovie = {
-          poster: `https://image.tmdb.org/t/p/w500${data.poster_path}`,
+          poster: data.poster_path
+            ? `https://image.tmdb.org/t/p/w500${data.poster_path}`
+            : `https://thumbs.dreamstime.com/b/%D0%B8-%D1%8E%D1%81%D1%82%D1%80%D0%B0%D1%86%D0%B8%D1%8F-%D0%BF-%D0%B0%D0%BA%D0%B0%D1%82%D0%B0-%D0%BA%D0%B8%D0%BD%D0%BE-48746594.jpg`,
           title: data.title,
           rating: data.vote_average.toFixed(1),
           tagline: data.tagline,
@@ -54,51 +55,11 @@ const MoviesInfo = () => {
       </MovieInfoBtn>
       {Boolean(Object.keys(movie).length) && (
         <>
-          <MovieInfoTitle>{movie.title}</MovieInfoTitle>
-          <MovieInfoBox>
-            <img src={movie.poster} alt={movie.title} />
-            <table>
-              <tbody>
-                <tr>
-                  <MovieInfoTd>
-                    <h2>Rating</h2>
-                  </MovieInfoTd>
-                  <td>{movie.rating}</td>
-                </tr>
-                <tr>
-                  <MovieInfoTd>
-                    <h2>Slogan</h2>
-                  </MovieInfoTd>
-                  <td>"{movie.tagline}"</td>
-                </tr>
-                <tr>
-                  <MovieInfoTd>
-                    <h2>Release date</h2>
-                  </MovieInfoTd>
-                  <td>{movie.date}</td>
-                </tr>
-                <tr>
-                  <MovieInfoTd>
-                    <h2>Country</h2>
-                  </MovieInfoTd>
-                  <td>{movie.countries}</td>
-                </tr>
-                <tr>
-                  <MovieInfoTd>
-                    <h2>Genre</h2>
-                  </MovieInfoTd>
-                  <td>{movie.genres}</td>
-                </tr>
-                <tr>
-                  <MovieInfoTd>
-                    <h2>Overview</h2>
-                  </MovieInfoTd>
-                  <td>{movie.overview}</td>
-                </tr>
-              </tbody>
-            </table>
-          </MovieInfoBox>
+          <MovieInfo movie={movie} />
           <CastList>
+            <li>
+              <AdditionalInfoLink to="trailer">Trailer</AdditionalInfoLink>
+            </li>
             <li>
               <AdditionalInfoLink to="cast">Cast</AdditionalInfoLink>
             </li>
@@ -106,7 +67,7 @@ const MoviesInfo = () => {
               <AdditionalInfoLink to="reviews">Reviews</AdditionalInfoLink>
             </li>
           </CastList>
-          <Suspense fallback={<div>Loading subpage...</div>}>
+          <Suspense fallback={<Loader />}>
             <Outlet />
           </Suspense>
         </>
@@ -115,4 +76,4 @@ const MoviesInfo = () => {
   );
 };
 
-export default MoviesInfo;
+export default MoviesDetails;

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { SerchForm, SerchButton } from './SearchForm.styled';
 import { ReactComponent as SerchIcon } from './../../images/search.svg';
 
@@ -16,6 +17,12 @@ const SearchFormForMovies = ({ value, onChange, onSubmit }) => {
       </SerchButton>
     </SerchForm>
   );
+};
+
+SearchFormForMovies.propTypes = {
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default SearchFormForMovies;
