@@ -23,6 +23,10 @@ export const ReviewsList = styled.ul`
         border-radius: 50%;
       }
     }
+    > p {
+      cursor: pointer;
+      text-overflow: ellipsis;
+    }
   }
 `;
 

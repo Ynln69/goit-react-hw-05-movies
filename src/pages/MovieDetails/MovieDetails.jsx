@@ -1,21 +1,15 @@
 import Notiflix from 'notiflix';
 import { useEffect, useState, Suspense } from 'react';
-import { ReactComponent as ArrowIcon } from './../../images/arrow-left.svg';
 import { fetchMoviesById } from 'api/moviesAPI';
-import { useParams, useLocation, Outlet } from 'react-router-dom';
-import {
-  MovieInfoBtn,
-  CastList,
-  AdditionalInfoLink,
-} from './MovieDetails.styled';
+import { useParams, Outlet } from 'react-router-dom';
+import { CastList, AdditionalInfoLink } from './MovieDetails.styled';
 import Loader from 'components/Loader/Loader';
 import MovieInfo from 'components/MovieInfo/MovieInfo';
+import BackLink from 'components/BackLink/BackLink';
 
 const MoviesDetails = () => {
   const [movie, setMovie] = useState([]);
   const { movieId } = useParams();
-  const location = useLocation();
-  const backLinkHref = location.state?.from ?? '/';
 
   useEffect(() => {
     const getMovieById = async () => {
@@ -49,10 +43,7 @@ const MoviesDetails = () => {
 
   return (
     <main>
-      <MovieInfoBtn to={backLinkHref}>
-        <ArrowIcon width="25" height="25" />
-        Go back to films
-      </MovieInfoBtn>
+      <BackLink />
       {Boolean(Object.keys(movie).length) && (
         <>
           <MovieInfo movie={movie} />

@@ -1,28 +1,5 @@
 import styled from '@emotion/styled';
-import { NavLink, Link } from 'react-router-dom';
-
-export const MovieInfoBtn = styled(Link)`
-  display: inline-flex;
-  align-items: center;
-  gap: 15px;
-  border: none;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  cursor: pointer;
-
-  color: #4682b4;
-  background-color: transparent;
-  text-decoration: none;
-  text-transform: uppercase;
-  font-weight: 900;
-  font-size: 15px;
-  &:hover {
-    color: #ffd700;
-  }
-  > svg {
-    fill: currentColor;
-  }
-`;
+import { NavLink } from 'react-router-dom';
 
 export const CastList = styled.ul`
   display: flex;
