@@ -8,9 +8,19 @@ export const CastList = styled.ul`
   > li {
     display: flex;
     flex-direction: column;
-    flex-basis: calc((100% - 8 * 10px) / 9);
+    flex-basis: calc((100% - 2 * 10px) / 3);
     border-radius: 5px;
     overflow: hidden;
+  }
+  @media (min-width: 768px) {
+    > li {
+      flex-basis: calc((100% - 4 * 10px) / 5);
+    }
+  }
+  @media (min-width: 768px) {
+    > li {
+      flex-basis: calc((100% - 8 * 10px) / 9);
+    }
   }
 `;
 

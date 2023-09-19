@@ -19,19 +19,23 @@ export const ModalContainer = styled.div`
 
 export const ModalBtn = styled.button`
   position: absolute;
-  width: 20px;
-  height: 20px;
+  width: 40px;
+  height: 40px;
   right: 25px;
-  top: 75px;
+  top: 32px;
   cursor: pointer;
   border-radius: 23%;
   border: none;
   color: yellow;
   background-color: #3f51b5;
-  font-size: 10px;
+  font-size: 30px;
   font-weight: 700;
   &:hover,
   &:focus {
     background-color: #303f9f;
+  }
+  @media (min-width: 768px) {
+    top: 20px;
+    right: 35px;
   }
 `;

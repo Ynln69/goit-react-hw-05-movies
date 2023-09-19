@@ -9,15 +9,20 @@ export const CastList = styled.ul`
   margin-bottom: 50px;
 `;
 export const AdditionalInfoLink = styled(NavLink)`
-  padding: 14px 32px;
+  padding: 10px;
   border-radius: 4px;
 
   color: #ffd700;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 15px;
   text-decoration: none;
   text-align: center;
   text-transform: uppercase;
+
+  @media (min-width: 768px) {
+    padding: 14px 32px;
+    font-size: 20px;
+  }
 
   &.active {
     color: white;

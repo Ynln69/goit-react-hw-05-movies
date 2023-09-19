@@ -3,16 +3,27 @@ import { NavLink } from 'react-router-dom';
 
 export const ListOfMovies = styled.ul`
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   gap: 16px;
   margin-top: 10px;
 
   > li {
-    flex-basis: calc((100% - 4 * 16px) / 5);
     border-radius: 10px;
     overflow: hidden;
     &:hover {
       filter: drop-shadow(0px 4px 16px rgba(0, 0, 0, 0.45));
+    }
+  }
+  @media (min-width: 768px) {
+    flex-direction: row;
+    > li {
+      flex-basis: calc((100% - 2 * 16px) / 3);
+    }
+  }
+  @media (min-width: 1200px) {
+    > li {
+      flex-basis: calc((100% - 4 * 16px) / 5);
     }
   }
 `;
